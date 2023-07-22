@@ -27,14 +27,15 @@ public class DatabaseConnection {
         ResultSet resultSet = statement.executeQuery(query);
 
         /**
-         * ResultSetMetaData gives the meta information about the table ex.(Colum size ,names,colum type etc.)
+         * ResultSetMetaData gives the meta information about the table ex.(Column size, names, column type etc.)
          */
+
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
         System.out.println("Number of columns: " + resultSetMetaData.getColumnCount());
         System.out.println("Column name :" + resultSetMetaData.getColumnName(2));
 
-        while(resultSet.next()){
+        while(resultSet.next()) {
             System.out.println(resultSet.getString("FIRST_NAME"));
             System.out.println(resultSet.getString(8));
         }

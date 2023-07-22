@@ -1,4 +1,4 @@
-package api.scripts;
+package api.scripts.go_rest;
 
 import api.pojo_classes.go_rest.CreateGoRestUser;
 import api.pojo_classes.go_rest.UpdateGoRestUser;
@@ -142,12 +142,6 @@ public class GoRest {
                 .then().log().all().extract().response();
     }
 }
-
-
-
-
-
-
 
 
 

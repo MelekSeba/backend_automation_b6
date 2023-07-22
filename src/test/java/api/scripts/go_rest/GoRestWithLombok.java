@@ -1,6 +1,7 @@
-package api.scripts;
+package api.scripts.go_rest;
 
 import api.pojo_classes.go_rest.CreateUserWithLombok;
+import api.pojo_classes.go_rest.UpdateUserWithLombok;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
@@ -63,10 +64,10 @@ public class GoRestWithLombok {
 
         // Since we used Hamcrest for validation by chaining it to our API call, we don't need to use
         // TestNG to assert anymore.
-        // String responseName = response.jsonPath().getString("name");
-        // String requestName = createUser.getName();
-        //
-       //Assert.assertEquals(responseName, requestName);
+//        String responseName = response.jsonPath().getString("name");
+//        String requestName = createUser.getName();
+//
+//        Assert.assertEquals(responseName, requestName);
 
         /**
          * 1. Create a GET call
@@ -75,23 +76,50 @@ public class GoRestWithLombok {
          * 4. Validate if the email coming from the response of GET call is equal to email we provided.
          */
 
-        int user_id=response.jsonPath().getInt("id");
+        int user_id = response.jsonPath().getInt("id");
 
         response = RestAssured.given()
                 .spec(baseSpec)
-                .when().get("/public/v2/users/"+ user_id)
-                .then().log().all().assertThat().statusCode(200)
-                .time(Matchers.lessThan(4000L)).body("email", equalTo(createUser.getEmail()))
+                .when().get("/public/v2/users/" + user_id)
+                .then().log().all().assertThat()
+                .statusCode(200).time(Matchers.lessThan(4000L))
+                .body("email", equalTo(createUser.getEmail()))
                 .extract().response();
 
-        String user_name =response.jsonPath().get("name");
+
+        /**
+         * 1. Update the user we created - update name and email
+         * 2. Validate status code
+         * 3. Validate response time
+         * 4. Validate e-mail
+         */
+
+        UpdateUserWithLombok updateUser = UpdateUserWithLombok.builder()
+                .name(faker.harryPotter().character())
+                .email(faker.internet().emailAddress())
+                .build();
 
         response = RestAssured.given()
                 .spec(baseSpec)
-                .when().put("/public/v2/users/"+ user_name)
-                .then().log().all().assertThat().statusCode(200)
-                .time(Matchers.lessThan(4000L)).body("email", equalTo(createUser.getEmail()))
+                .body(updateUser)
+                .when().put("/public/v2/users/" + user_id)
+                .then().log().all().assertThat()
+                .statusCode(200).time(Matchers.lessThan(4000L))
+                .body("email", equalTo(updateUser.getEmail()))
                 .extract().response();
+
+
+        response = RestAssured.given()
+                .spec(baseSpec)
+                .when().delete("/public/v2/users/" + user_id)
+                .then().log().all().assertThat()
+                .statusCode(204).time(Matchers.lessThan(4000L))
+                .extract().response();
+
+
+
+
+
 
 
     }

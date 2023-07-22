@@ -37,14 +37,3 @@ public class CreateUserWithLombok {
     private String status;
 
 }
-
-
-
-
-
-
-
-
-
-
-

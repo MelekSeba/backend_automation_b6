@@ -25,7 +25,7 @@ public class APIAutomationSample {
         // Creating the post request
         response = RestAssured.given().log().all()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer 4546056dafdad664425e5d843cd029b78d5dd90064444c63501c363b681086d6")
+                .header("Authorization", "Bearer 919fa876f1170f34690dd3d28a305d57644903a449bda0235c68804951318c91")
                 .body("{\n" +
                         "    \"name\": \"" + name + "\",\n" +
                         "    \"gender\": \"male\",\n" +
@@ -42,7 +42,7 @@ public class APIAutomationSample {
         // Creating the get request to fetch user
         response = RestAssured.given().log().all()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer 4546056dafdad664425e5d843cd029b78d5dd90064444c63501c363b681086d6")
+                .header("Authorization", "Bearer 919fa876f1170f34690dd3d28a305d57644903a449bda0235c68804951318c91")
                 .when().get("https://gorest.co.in/public/v2/users/" + userId)
                 .then().log().all().extract().response();
 
@@ -62,7 +62,7 @@ public class APIAutomationSample {
         // Creating PATCh request tp update the existing user
         response = RestAssured.given().log().all()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer 4546056dafdad664425e5d843cd029b78d5dd90064444c63501c363b681086d6")
+                .header("Authorization", "Bearer 919fa876f1170f34690dd3d28a305d57644903a449bda0235c68804951318c91")
                 .body("{\n" +
                         "    \"name\": \"" + faker.name().fullName() + "\",\n" +
                         "    \"gender\": \"male\",\n" +
@@ -75,7 +75,7 @@ public class APIAutomationSample {
 
         response = RestAssured.given().log().all()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer 4546056dafdad664425e5d843cd029b78d5dd90064444c63501c363b681086d6")
+                .header("Authorization", "Bearer 919fa876f1170f34690dd3d28a305d57644903a449bda0235c68804951318c91")
                 .when().delete("https://gorest.co.in/public/v2/users/" + userId)
                 .then().log().all().extract().response();
     }
