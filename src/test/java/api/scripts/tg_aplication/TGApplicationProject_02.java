@@ -11,17 +11,13 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.ConfigReader;
 
-import java.util.List;
-import java.util.Map;
-
 import static org.hamcrest.Matchers.*;
 
-public class TGApplicationProject {
+public class TGApplicationProject_02 {
     Response response;
     RequestSpecification baseSpec;
     Faker faker = new Faker();
@@ -36,6 +32,7 @@ public class TGApplicationProject {
 
     @Test
     public void tgCRUD() {
+        //Task01 Retrieve a list of all users.
         response = RestAssured.given()
                 .spec(baseSpec)
                 .when().get("/students")
@@ -46,7 +43,7 @@ public class TGApplicationProject {
                 .body("[1].lastName", equalTo("Doe"))
                 .extract().response();
 
-        //Task 02 Create a new user
+        //Task02 Create a new user
         TGCreateStudent createStudent = TGCreateStudent.builder()
                 .firstName(faker.name().firstName()).lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress()).dob("2001-01-01")
@@ -64,7 +61,7 @@ public class TGApplicationProject {
                 .body("dob", equalTo(createStudent.getDob()))
                 .extract().response();
 
-        //Task03 Get Student
+        //Task03 Retrieve a specific user-created
 
         int student_id = response.jsonPath().getInt("id");
 
@@ -79,7 +76,7 @@ public class TGApplicationProject {
                 .body("dob", equalTo(createStudent.getDob()))
                 .extract().response();
 
-        //Task04 Update Student
+        //Task04 Update an existing user
 
         UpdatePutStudent updatePutStudent  = UpdatePutStudent.builder()
                 .firstName(faker.name().firstName()).lastName(faker.name().lastName())
@@ -98,7 +95,7 @@ public class TGApplicationProject {
                 .body("dob", equalTo(updatePutStudent.getDob()))
                 .extract().response();
 
-        //Task05 Update Student
+        //Task05 Partially update an existing User
 
         UpdatePatchStudent updatePatchStudent  = UpdatePatchStudent.builder()
                 .email(faker.internet().emailAddress()).dob("2001-03-01")
@@ -114,7 +111,7 @@ public class TGApplicationProject {
                 .body("dob", equalTo(updatePatchStudent.getDob()))
                 .extract().response();
 
-        //Task06 Get all student again
+        //Task06  Retrieve a list of all users again
 
         response = RestAssured.given()
                 .spec(baseSpec)
@@ -124,7 +121,7 @@ public class TGApplicationProject {
                 .body("", hasSize(greaterThanOrEqualTo(3)))
                 .extract().response();
 
-// Task07  Retrieve a specific user created to confirm the update.
+        // Task07  Retrieve a specific user created to confirm the update.
 
         response = RestAssured.given()
                 .spec(baseSpec)
@@ -137,7 +134,7 @@ public class TGApplicationProject {
                 .body("dob", equalTo(updatePatchStudent.getDob()))
                 .extract().response();
 
-        //Task 8 Delete the user that you created.
+        //Task08 Delete the user that you created.
         response = RestAssured.given()
                 .spec(baseSpec)
                 .when().delete("/students/" + student_id)
