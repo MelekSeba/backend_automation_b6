@@ -17,7 +17,7 @@ import utils.ConfigReader;
 
 import static org.hamcrest.Matchers.*;
 
-public class TGApplicationProject_02 {
+public class TGApplicationAPIProject_02 {
     Response response;
     RequestSpecification baseSpec;
     Faker faker = new Faker();
