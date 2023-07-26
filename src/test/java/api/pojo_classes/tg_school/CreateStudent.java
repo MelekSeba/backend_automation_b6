@@ -1,12 +1,11 @@
-package api.pojo_classes.tg_aplication;
+package api.pojo_classes.tg_school;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-
-public class TGCreateStudent {
+public class CreateStudent {
 
     private String firstName;
     private String lastName;

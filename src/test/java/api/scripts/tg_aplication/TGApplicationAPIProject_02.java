@@ -25,7 +25,7 @@ public class TGApplicationAPIProject_02 {
     @BeforeMethod
     public void setAPI() {
         baseSpec = new RequestSpecBuilder().log(LogDetail.ALL)
-                .setBaseUri(ConfigReader.getProperty("TechGlobalURI"))
+                .setBaseUri(ConfigReader.getProperty("TGSchoolBaseURI"))
                 .setContentType(ContentType.JSON)
                 .build();
     }
@@ -86,7 +86,7 @@ public class TGApplicationAPIProject_02 {
         response = RestAssured.given()
                 .spec(baseSpec)
                 .body(updatePutStudent)
-                .when().put("/students/" +student_id)
+                .when().put("/students/" + student_id)
                 .then().log().all().assertThat().statusCode(200)
                 .time(Matchers.lessThan(5000L))
                 .body("firstName", equalTo(updatePutStudent.getFirstName()))

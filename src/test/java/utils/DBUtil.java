@@ -93,5 +93,3 @@ public class DBUtil {
         return getQueryResultList(query).get(0).get(0);
     }
 }
-
-
