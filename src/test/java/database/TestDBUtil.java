@@ -1,6 +1,7 @@
 package database;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.DBUtil;
 
@@ -51,6 +52,8 @@ public class TestDBUtil {
             }
         }
     }
+
+
 }
 
 

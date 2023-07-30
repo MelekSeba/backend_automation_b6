@@ -17,8 +17,7 @@ import utils.ConfigReader;
 
 import static org.hamcrest.Matchers.*;
 
-public class TGApplicationAPIProject_02 {
-    Response response;
+public class TGApplicationAPIProject_02 {Response response;
     RequestSpecification baseSpec;
     Faker faker = new Faker();
 
@@ -29,6 +28,7 @@ public class TGApplicationAPIProject_02 {
                 .setContentType(ContentType.JSON)
                 .build();
     }
+
 
     @Test
     public void tgCRUD() {
@@ -107,6 +107,8 @@ public class TGApplicationAPIProject_02 {
                 .when().patch("/students/" +student_id)
                 .then().log().all().assertThat().statusCode(200)
                 .time(Matchers.lessThan(5000L))
+                .body("firstName", equalTo(updatePutStudent.getFirstName()))
+                .body("lastName", equalTo(updatePutStudent.getLastName()))
                 .body("email", equalTo(updatePatchStudent.getEmail()))
                 .body("dob", equalTo(updatePatchStudent.getDob()))
                 .extract().response();
